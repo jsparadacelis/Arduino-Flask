@@ -1,5 +1,5 @@
 # Dependencies
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from sklearn.externals import joblib
 import traceback
 import pandas as pd
@@ -7,6 +7,8 @@ import numpy as np
 import csv
 import json
 
+
+UPLOAD_DIRECTORY = "/home/neftali/Escritorio/pycontest/test/"
 
 # Your API definition
 app = Flask(__name__)
@@ -20,11 +22,13 @@ def write_csv():
         spamwriter = csv.writer(csvfile, delimiter=' ',
                                 quotechar=',', quoting=csv.QUOTE_MINIMAL)
         spamwriter.writerow(json_["Age"])
-    
-    
 
     return "hola"
-
+    
+@app.route("/files/<path:path>")
+def get_file(path):
+    """Download a file."""
+    return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
 
 if __name__ == '__main__':
     try:
