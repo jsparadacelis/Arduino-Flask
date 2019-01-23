@@ -12,7 +12,7 @@ void loop() {
   float voltaje = 5.0 /1024 * lectura ; 
   float temp = voltaje * 100 -50 ; 
   Serial.println(temp) ; 
-  delay(1000);
+  delay(5000);
 
 }
 

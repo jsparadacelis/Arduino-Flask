@@ -8,27 +8,30 @@ import csv
 import json
 
 
-UPLOAD_DIRECTORY = "/home/neftali/Escritorio/pycontest/test/"
+DOWNLOAD_DIRECTORY = "/home/neftali/Escritorio/pycontest/test/"
 
 # Your API definition
 app = Flask(__name__)
 @app.route('/write_csv', methods=['POST'])
 def write_csv():
+    #obteniendo los valores del request
     json_ = request.get_json()
-    print(json_)
-
     file_name = "/home/neftali/Escritorio/pycontest/test/file.csv"
-    with open(file_name, 'w') as csvfile:
-        spamwriter = csv.writer(csvfile, delimiter=' ',
-                                quotechar=',', quoting=csv.QUOTE_MINIMAL)
-        spamwriter.writerow(json_["Age"])
+    with open(file_name, 'a') as csvfile:
+        spamwriter = csv.writer(
+            csvfile,
+            delimiter=' ',
+            quotechar=',', 
+            quoting=csv.QUOTE_MINIMAL
+        )
+        spamwriter.writerow(json_["temp"])
 
-    return "hola"
+    return "File"
     
 @app.route("/files/<path:path>")
 def get_file(path):
     """Download a file."""
-    return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
+    return send_from_directory(DOWNLOAD_DIRECTORY, path, as_attachment=True)
 
 if __name__ == '__main__':
     try:
