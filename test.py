@@ -1,4 +1,4 @@
-import serial, requests, json
+import serial, requests, json, sys
 
 
 URL_API = "http://localhost:12345/write_csv"
@@ -10,7 +10,7 @@ arduino_data = serial.Serial(SERIAL_PORT, baudrate=9600, timeout=10.0)
 while True:
     #lee las lineas de la salida del arduino
     arduino_scope = arduino_data.readline()
-    decoded_bytes = float(arduino_scope[0:len(line)-2].decode("utf-8"))
+    decoded_bytes = float(arduino_scope[0:len(arduino_scope)-2].decode("utf-8"))
     data_to_request = {
         "temp": decoded_bytes
     }

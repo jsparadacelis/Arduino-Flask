@@ -15,13 +15,13 @@ def write_csv():
 
     try:
         #Abre el archivo para sobrescribirlo
-        with open(FILE_PATH,"a", newline=',') as f:
+        with open(FILE_PATH,"a", newline='') as f:
             writer = csv.writer(f,delimiter=",")
             writer.writerow([data_request["temp"]])
-        return 1
+        return "Escribiendo..."
     except Exception as e:
         print(e)
-        return 0
+        return "Error de escritura..."
 
    
 #Endpoint para escribir el archivo
